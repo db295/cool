@@ -1,0 +1,13 @@
+mkdir source
+cp -r  /share/ex_data/ex1/* source 
+cp -r source modified 
+cd modified
+mv data/welcome scripts 
+mv RDME README
+chmod -R ug+x scripts
+chmod 444 README
+rm -r ../source
+ls -l data scripts 
+ls data/datafile[0-9]
+rm data/datafile-3.txt
+cat data/datafile1
