@@ -1,0 +1,5 @@
+cat war-and-peace.txt |tr [:space:][:punct:] '\n' |tr 'A-Z' 'a-z'| grep -E ^[[:alpha:]]+$ | sort | uniq > war-unique-words.txt
+cat /share/ex_data/ex3/war-unique-words.txt | grep -E '[^aeiouy]{4,}' > war-4consonants.txt
+cat war-and-peace.txt  |tr [:space:][:punct:] '\n' |tr 'A-Z' 'a-z'| grep -E  ^[[:alpha:]]+$ | grep -E '(.*[ae].*){4,}' | sort | uniq -c |sort -rk1,1 | head -n1 |sed 's/\([^0-9]*\)\([0-9].*\) \(
+[[:alpha:]].*\)/The word \3 appears \2 times in file\./'
+
