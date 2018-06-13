@@ -125,17 +125,67 @@ int strListFromWords(const char* source, char* target, int buffSize) {
 
 /*** Problem 1.5 ***/
 char* createStrList(const char* str) {
-    return NULL; /* Not yet implemented  */
+	// Get the size that is needed for the copy
+	int size = strListLen(str) + 2;
+	char *newStr = malloc(size * sizeof(char));
+	if (NULL == newStr) {
+		return NULL;
+	}
+	// use StrListFromWords to copy the list into the new allocated mem
+	strListFromWords(str, newStr, size);
+	return newStr;
 }
 
 /*** Problem 1.6 ***/
 char* nextStrInList(char* stringList) {
-    return NULL; /* Not yet implemented  */
+	static char *lastWord = NULL;
+	static char *lastCallWordList = NULL;
+
+	if (NULL == stringList) {
+		lastWord = NULL;
+		lastCallWordList = NULL;
+		return NULL;
+	}
+	if (NULL == lastCallWordList || lastCallWordList != stringList) {
+		lastCallWordList = stringList;
+		lastWord = stringList;
+		// Return a pointer to the first word in the list
+		// TODO: in case empty, this should return NULL
+		return stringList;
+	}
+	else {
+		// In case already at the end of the word
+		if ('\0' == *lastWord) {
+			return NULL;
+		}
+		// String in the list followed the last string
+		while ('\0' != *lastWord) {
+			lastWord++;
+		}
+		++lastWord;
+		// 2 times \0 - means the end of the list.
+		if ('\0' == *lastWord) {
+			// If the end of the list - return NULL
+			return NULL;
+		}
+		return lastWord;
+	}
+	
 }
 
 /*** Problem 1.7 ***/
 void printStrList(char* strList, char delim) {
-    return;     /* Not yet implemented  */
+	char* currentWord;
+	nextStrInList(NULL);
+	currentWord = nextStrInList(strList);
+	while (NULL != currentWord || '\0' != currentWord) {
+		printf("%s", currentWord);
+		currentWord = nextStrInList(strList);
+		if (NULL != currentWord) {
+			printf("%c", delim);
+		}
+	}
+	printf("\n");
 }
 
 /*** end of stringList.c ***/
